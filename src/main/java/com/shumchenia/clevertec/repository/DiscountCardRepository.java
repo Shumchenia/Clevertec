@@ -1,6 +1,6 @@
 package com.shumchenia.clevertec.repository;
 
-import com.shumchenia.clevertec.model.DiscountCard;
+import com.shumchenia.clevertec.model.discoundCard.DiscountCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

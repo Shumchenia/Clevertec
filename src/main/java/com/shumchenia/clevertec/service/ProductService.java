@@ -1,10 +1,11 @@
 package com.shumchenia.clevertec.service;
 
-import com.shumchenia.clevertec.dto.ProductCreateEditDto;
-import com.shumchenia.clevertec.dto.ProductReadDto;
-import com.shumchenia.clevertec.mapper.ProductCreateEditMapper;
-import com.shumchenia.clevertec.mapper.ProductReadMapper;
+import com.shumchenia.clevertec.dto.product.ProductCreateEditDto;
+import com.shumchenia.clevertec.dto.product.ProductReadDto;
+import com.shumchenia.clevertec.mapper.product.ProductCreateEditMapper;
+import com.shumchenia.clevertec.mapper.product.ProductReadMapper;
 import com.shumchenia.clevertec.repository.ProductRepository;
+import com.shumchenia.clevertec.util.product.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +28,10 @@ public class ProductService {
                 .toList();
     }
 
-    public Optional<ProductReadDto> findById(Long id) {
+    public ProductReadDto findById(Long id) {
         return productRepository.findById(id)
-                .map(productReadMapper::map);
+                .map(productReadMapper::map)
+                .orElseThrow(ProductNotFoundException::new);
     }
 
     @Transactional
@@ -42,23 +44,19 @@ public class ProductService {
     }
 
     @Transactional
-    public Optional<ProductReadDto> update(Long id, ProductCreateEditDto productCreateEditDto) {
+    public ProductReadDto update(Long id, ProductCreateEditDto productCreateEditDto) {
         return productRepository.findById(id)
                 .map(entity -> productCreateEditMapper.map(productCreateEditDto, entity))
                 .map(productRepository::saveAndFlush)
-                .map(productReadMapper::map);
+                .map(productReadMapper::map)
+                .orElseThrow(ProductNotFoundException::new);
     }
 
     @Transactional
-    public boolean delete(Long id) {
-        return productRepository.findById(id)
-                .map(entity ->
-                {
-                    productRepository.deleteById(id);
-                    return true;
-                })
-                .orElse(false);
+    public void delete(Long id) {
+        productRepository.findById(id)
+                .orElseThrow(ProductNotFoundException::new);
+        productRepository.deleteById(id);
 
     }
-
 }

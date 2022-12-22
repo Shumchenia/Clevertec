@@ -1,10 +1,11 @@
-package com.shumchenia.clevertec.model;
+package com.shumchenia.clevertec.model.discoundCard;
 
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -16,6 +17,7 @@ public class DiscountCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    @ToString.Exclude
     private Long id;
 
     @Column(name = "code")

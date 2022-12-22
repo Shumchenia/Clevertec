@@ -1,7 +1,8 @@
-package com.shumchenia.clevertec.mapper;
+package com.shumchenia.clevertec.mapper.discountCard;
 
-import com.shumchenia.clevertec.dto.DiscountCardCreateEditDto;
-import com.shumchenia.clevertec.model.DiscountCard;
+import com.shumchenia.clevertec.dto.discountCard.DiscountCardCreateEditDto;
+import com.shumchenia.clevertec.mapper.Mapper;
+import com.shumchenia.clevertec.model.discoundCard.DiscountCard;
 import org.springframework.stereotype.Component;
 @Component
 public class DiscountCardCreateEditMapper implements Mapper<DiscountCardCreateEditDto,DiscountCard> {

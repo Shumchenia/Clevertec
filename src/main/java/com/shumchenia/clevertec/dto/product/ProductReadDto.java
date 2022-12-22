@@ -1,4 +1,4 @@
-package com.shumchenia.clevertec.dto;
+package com.shumchenia.clevertec.dto.product;
 
 import lombok.Value;
 

@@ -1,6 +1,6 @@
 package com.shumchenia.clevertec.repository;
 
-import com.shumchenia.clevertec.model.Product;
+import com.shumchenia.clevertec.model.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

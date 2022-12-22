@@ -1,4 +1,4 @@
-package com.shumchenia.clevertec.model;
+package com.shumchenia.clevertec.model.product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,4 +22,11 @@ public class Product {
 
     @Column(name = "name")
     private String name;
+
+
+    @Override
+    public String toString() {
+        return getPrice()+" "+getName();
+    }
+
 }

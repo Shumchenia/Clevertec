@@ -1,13 +1,15 @@
 package com.shumchenia.clevertec.controller;
 
-import com.shumchenia.clevertec.dto.DiscountCardCreateEditDto;
-import com.shumchenia.clevertec.dto.DiscountCardReadDto;
+import com.shumchenia.clevertec.dto.discountCard.DiscountCardCreateEditDto;
+import com.shumchenia.clevertec.dto.discountCard.DiscountCardReadDto;
 import com.shumchenia.clevertec.service.DiscountCardService;
+import com.shumchenia.clevertec.util.discountCard.DiscoundCardErrorResponse;
+import com.shumchenia.clevertec.util.discountCard.DiscoundCardNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,8 +26,7 @@ public class DiscountCardRestController{
 
     @GetMapping("/{id}")
     public DiscountCardReadDto findById(@PathVariable("id") Long id) {
-        return discountCardService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return discountCardService.findById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -37,16 +38,21 @@ public class DiscountCardRestController{
     @PutMapping("/{id}")
     public DiscountCardReadDto update(@PathVariable("id") Long id,
                                  @RequestBody DiscountCardCreateEditDto product) {
-        return discountCardService.update(id, product)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return discountCardService.update(id, product);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id){
-        if(!discountCardService.delete(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        discountCardService.delete(id);
+    }
+    @ExceptionHandler
+    private ResponseEntity<DiscoundCardErrorResponse> hadlerException(DiscoundCardNotFoundException e){
+        DiscoundCardErrorResponse response= new DiscoundCardErrorResponse(
+                "discound card with this id wasn't found",
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
     }
 }
 

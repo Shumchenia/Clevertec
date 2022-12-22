@@ -1,7 +1,8 @@
-package com.shumchenia.clevertec.mapper;
+package com.shumchenia.clevertec.mapper.product;
 
-import com.shumchenia.clevertec.dto.ProductCreateEditDto;
-import com.shumchenia.clevertec.model.Product;
+import com.shumchenia.clevertec.dto.product.ProductCreateEditDto;
+import com.shumchenia.clevertec.mapper.Mapper;
+import com.shumchenia.clevertec.model.product.Product;
 import org.springframework.stereotype.Component;
 
 @Component

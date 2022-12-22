@@ -1,10 +1,11 @@
 package com.shumchenia.clevertec.service;
 
-import com.shumchenia.clevertec.dto.DiscountCardCreateEditDto;
-import com.shumchenia.clevertec.dto.DiscountCardReadDto;
-import com.shumchenia.clevertec.mapper.DiscountCardCreateEditMapper;
-import com.shumchenia.clevertec.mapper.DiscountCardReadMapper;
+import com.shumchenia.clevertec.dto.discountCard.DiscountCardCreateEditDto;
+import com.shumchenia.clevertec.dto.discountCard.DiscountCardReadDto;
+import com.shumchenia.clevertec.mapper.discountCard.DiscountCardCreateEditMapper;
+import com.shumchenia.clevertec.mapper.discountCard.DiscountCardReadMapper;
 import com.shumchenia.clevertec.repository.DiscountCardRepository;
+import com.shumchenia.clevertec.util.discountCard.DiscoundCardNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +29,10 @@ public class DiscountCardService {
                 .toList();
     }
 
-    public Optional<DiscountCardReadDto> findById(Long id) {
+    public DiscountCardReadDto findById(Long id) {
         return discountCardRepository.findById(id)
-                .map(discountCardReadMapper::map);
+                .map(discountCardReadMapper::map)
+                .orElseThrow(DiscoundCardNotFoundException::new);
     }
 
     @Transactional
@@ -43,22 +45,19 @@ public class DiscountCardService {
     }
 
     @Transactional
-    public Optional<DiscountCardReadDto> update(Long id, DiscountCardCreateEditDto discountCardCreateEditDto) {
+    public DiscountCardReadDto update(Long id, DiscountCardCreateEditDto discountCardCreateEditDto) {
         return discountCardRepository.findById(id)
                 .map(entity -> discountCardCreateEditMapper.map(discountCardCreateEditDto, entity))
                 .map(discountCardRepository::saveAndFlush)
-                .map(discountCardReadMapper::map);
+                .map(discountCardReadMapper::map)
+                .orElseThrow(DiscoundCardNotFoundException::new);
     }
 
     @Transactional
-    public boolean delete(Long id) {
-        return discountCardRepository.findById(id)
-                .map(entity ->
-                {
-                    discountCardRepository.deleteById(id);
-                    return true;
-                })
-                .orElse(false);
+    public void delete(Long id) {
+        discountCardRepository.findById(id)
+                .orElseThrow(DiscoundCardNotFoundException::new);
+        discountCardRepository.deleteById(id);
 
     }
 }

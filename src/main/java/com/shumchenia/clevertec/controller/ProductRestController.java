@@ -1,13 +1,15 @@
 package com.shumchenia.clevertec.controller;
 
-import com.shumchenia.clevertec.dto.ProductCreateEditDto;
-import com.shumchenia.clevertec.dto.ProductReadDto;
+import com.shumchenia.clevertec.dto.product.ProductCreateEditDto;
+import com.shumchenia.clevertec.dto.product.ProductReadDto;
 import com.shumchenia.clevertec.service.ProductService;
+import com.shumchenia.clevertec.util.product.ProductErrorResponse;
+import com.shumchenia.clevertec.util.product.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,8 +27,7 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public ProductReadDto findById(@PathVariable("id") Long id) {
-        return productService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return productService.findById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,16 +39,22 @@ public class ProductRestController {
     @PutMapping("/{id}")
     public ProductReadDto update(@PathVariable("id") Long id,
                                  @RequestBody ProductCreateEditDto product) {
-        return productService.update(id, product)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return productService.update(id, product);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id){
-        if(!productService.delete(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        productService.delete(id);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ProductErrorResponse> hadlerException(ProductNotFoundException e){
+        ProductErrorResponse response= new ProductErrorResponse(
+                "product with this id wasn't found",
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
     }
 
 }

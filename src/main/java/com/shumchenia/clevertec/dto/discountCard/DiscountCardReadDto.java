@@ -1,4 +1,4 @@
-package com.shumchenia.clevertec.dto;
+package com.shumchenia.clevertec.dto.discountCard;
 
 import lombok.Value;
 
