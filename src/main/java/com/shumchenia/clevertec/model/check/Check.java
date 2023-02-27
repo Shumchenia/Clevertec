@@ -1,12 +1,15 @@
 package com.shumchenia.clevertec.model.check;
 
-import com.shumchenia.clevertec.model.discoundCard.DiscountCard;
+import com.shumchenia.clevertec.model.discountCard.DiscountCard;
 import com.shumchenia.clevertec.model.product.Product;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 
+
+@Data
 public class Check {
 
     private Map<Product, Integer> products;
@@ -20,18 +23,6 @@ public class Check {
         this.products = products;
         this.discountCard = discountCard;
         this.sum=sum;
-    }
-
-    public Map<Product, Integer> getProducts() {
-        return products;
-    }
-
-    public Optional<DiscountCard> getDiscountCard() {
-        return discountCard;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
     }
 
     @Override

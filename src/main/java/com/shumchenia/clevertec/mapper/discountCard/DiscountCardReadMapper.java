@@ -2,7 +2,7 @@ package com.shumchenia.clevertec.mapper.discountCard;
 
 import com.shumchenia.clevertec.dto.discountCard.DiscountCardReadDto;
 import com.shumchenia.clevertec.mapper.Mapper;
-import com.shumchenia.clevertec.model.discoundCard.DiscountCard;
+import com.shumchenia.clevertec.model.discountCard.DiscountCard;
 import org.springframework.stereotype.Component;
 
 @Component
