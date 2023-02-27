@@ -1,7 +1,7 @@
 package com.shumchenia.clevertec.model.check.builder;
 
 import com.shumchenia.clevertec.model.check.Check;
-import com.shumchenia.clevertec.model.discoundCard.DiscountCard;
+import com.shumchenia.clevertec.model.discountCard.DiscountCard;
 import com.shumchenia.clevertec.model.product.Product;
 import org.springframework.stereotype.Component;
 
