@@ -22,18 +22,34 @@ public class ProductService {
     private final ProductReadMapper productReadMapper;
     private final ProductCreateEditMapper productCreateEditMapper;
 
+
+    /***
+     * method for getting all product from repository
+     * @return List
+     */
     public List<ProductReadDto> findAll() {
         return productRepository.findAll().stream()
                 .map(productReadMapper::map)
                 .toList();
     }
 
+    /***
+     * method for getting product by id from repository
+     * @param id
+     * @return ProductReadDto
+     */
     public ProductReadDto findById(Long id) {
         return productRepository.findById(id)
                 .map(productReadMapper::map)
                 .orElseThrow(ProductNotFoundException::new);
     }
 
+
+    /***
+     * method for creating product
+     * @param productCreateEditDto
+     * @return ProductReadDto
+     */
     @Transactional
     public ProductReadDto create(ProductCreateEditDto productCreateEditDto) {
         return Optional.of(productCreateEditDto)
@@ -43,6 +59,12 @@ public class ProductService {
                 .orElseThrow();
     }
 
+    /***
+     * method for update product by id
+     * @param id
+     * @param productCreateEditDto
+     * @return ProductReadDto
+     */
     @Transactional
     public ProductReadDto update(Long id, ProductCreateEditDto productCreateEditDto) {
         return productRepository.findById(id)
@@ -52,6 +74,10 @@ public class ProductService {
                 .orElseThrow(ProductNotFoundException::new);
     }
 
+    /***
+     * method for deleting product by id
+     * @param id
+     */
     @Transactional
     public void delete(Long id) {
         productRepository.findById(id)

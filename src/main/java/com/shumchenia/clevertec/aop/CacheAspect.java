@@ -33,6 +33,13 @@ public class CacheAspect {
         this.cache = beanFactory.getBean(algorithm, Cache.class);
     }
 
+    /***
+     * cache Advice to findByID
+     * @param point
+     * @param id
+     * @return Optional
+     * @throws Throwable
+     */
     @Around("com.shumchenia.clevertec.aop.Pointcuts.isFindById()" +
             "&& args(id)")
     public Object cachingFindById(ProceedingJoinPoint point, Object id) throws Throwable {
@@ -43,6 +50,13 @@ public class CacheAspect {
         obj.ifPresent(card -> cache.put((Long) id, card));
         return obj;
     }
+
+    /***
+     * cache Advice to findAll
+     * @param point
+     * @return List
+     * @throws Throwable
+     */
     @Around("com.shumchenia.clevertec.aop.Pointcuts.isFindAll()")
     public Object cachingFindAll(ProceedingJoinPoint point) throws Throwable {
         List<DiscountCard> list = (List<DiscountCard>) point.proceed();
@@ -50,7 +64,12 @@ public class CacheAspect {
         return list;
     }
 
-
+    /***
+     * cache Advice for deleteById
+     * @param point
+     * @param id
+     * @throws Throwable
+     */
     @Around("com.shumchenia.clevertec.aop.Pointcuts.isDeleteById()" +
             "&& args(id)")
     public void cachingDeleteById(ProceedingJoinPoint point, Object id) throws Throwable {
@@ -60,6 +79,11 @@ public class CacheAspect {
         point.proceed();
     }
 
+    /***
+     * cache Advice for save
+     * @param point
+     * @throws Throwable
+     */
     @Around("com.shumchenia.clevertec.aop.Pointcuts.isSave()")
     public void cachingSave(ProceedingJoinPoint point) throws Throwable {
         Optional<DiscountCard> card = (Optional<DiscountCard>) point.proceed();
