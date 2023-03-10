@@ -19,7 +19,7 @@ public class ProductRepository {
     }
 
     public List<Product> findAll() {
-        return (List<Product>) map.values();
+        return  map.values().stream().toList();
     }
 
     public Optional<Product> findById(Long key) {
