@@ -6,3 +6,6 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+cache:
+  capacity: 4
+  algorithm: LFU
