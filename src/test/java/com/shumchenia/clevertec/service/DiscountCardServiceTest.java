@@ -2,17 +2,11 @@ package com.shumchenia.clevertec.service;
 
 
 import com.shumchenia.clevertec.dto.discountCard.DiscountCardReadDto;
-import com.shumchenia.clevertec.dto.product.ProductReadDto;
 import com.shumchenia.clevertec.mapper.discountCard.DiscountCardCreateEditMapper;
 import com.shumchenia.clevertec.mapper.discountCard.DiscountCardReadMapper;
-import com.shumchenia.clevertec.mapper.product.ProductCreateEditMapper;
-import com.shumchenia.clevertec.mapper.product.ProductReadMapper;
 import com.shumchenia.clevertec.model.discountCard.DiscountCard;
-import com.shumchenia.clevertec.model.product.Product;
 import com.shumchenia.clevertec.repository.DiscountCardRepository;
-import com.shumchenia.clevertec.repository.ProductRepository;
 import com.shumchenia.clevertec.util.impl.DiscountCardTestBuilder;
-import com.shumchenia.clevertec.util.impl.ProductTestBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -121,7 +115,7 @@ public class DiscountCardServiceTest {
             DiscountCard expected = testBuilder.build();
 
             when(repository.findById(anyLong())).thenReturn(Optional.of(expected));
-            when(repository.saveAndFlush(any(DiscountCard.class))).thenReturn(expected);
+            when(repository.save(any(DiscountCard.class))).thenReturn(expected);
 
             DiscountCardReadDto actual = service.update(expected.getId(), createEditMapper.map(expected));
 

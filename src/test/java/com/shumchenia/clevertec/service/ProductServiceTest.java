@@ -111,7 +111,7 @@ public class ProductServiceTest {
             Product expected = testBuilder.build();
 
             when(repository.findById(anyLong())).thenReturn(Optional.of(expected));
-            when(repository.saveAndFlush(any(Product.class))).thenReturn(expected);
+            when(repository.save(any(Product.class))).thenReturn(expected);
 
             ProductReadDto actual = service.update(expected.getId(), createEditMapper.map(expected));
 

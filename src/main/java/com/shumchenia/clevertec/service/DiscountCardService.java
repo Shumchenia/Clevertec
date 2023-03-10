@@ -48,7 +48,7 @@ public class DiscountCardService {
     public DiscountCardReadDto update(Long id, DiscountCardCreateEditDto discountCardCreateEditDto) {
         return discountCardRepository.findById(id)
                 .map(entity -> discountCardCreateEditMapper.map(discountCardCreateEditDto, entity))
-                .map(discountCardRepository::saveAndFlush)
+                .map(discountCardRepository::save)
                 .map(discountCardReadMapper::map)
                 .orElseThrow(DiscoundCardNotFoundException::new);
     }

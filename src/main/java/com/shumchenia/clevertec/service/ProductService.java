@@ -47,7 +47,7 @@ public class ProductService {
     public ProductReadDto update(Long id, ProductCreateEditDto productCreateEditDto) {
         return productRepository.findById(id)
                 .map(entity -> productCreateEditMapper.map(productCreateEditDto, entity))
-                .map(productRepository::saveAndFlush)
+                .map(productRepository::save)
                 .map(productReadMapper::map)
                 .orElseThrow(ProductNotFoundException::new);
     }
