@@ -1,4 +1,4 @@
-package com.shumchenia.clevertec.model.discoundCard;
+package com.shumchenia.clevertec.model.discountCard;
 
 
 import jakarta.persistence.*;

@@ -13,6 +13,10 @@ public class ProductCreateEditMapper implements Mapper<ProductCreateEditDto, Pro
         copy(fromObject, toObject);
         return toObject;
     }
+    public ProductCreateEditDto map(Product fromObject) {
+        ProductCreateEditDto product = new ProductCreateEditDto(fromObject.getPrice(),fromObject.getName());
+        return product;
+    }
 
     @Override
     public Product map(ProductCreateEditDto object) {
